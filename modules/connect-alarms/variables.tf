@@ -1,7 +1,6 @@
 variable "instance_id" {
-  type        = bool
+  type        = string
   description = "The identifier of the Connect instance."
-  default     = false
 }
 
 variable "project" {

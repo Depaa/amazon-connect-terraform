@@ -258,7 +258,6 @@ resource "aws_cloudwatch_log_metric_filter" "custom_did_number" {
     namespace     = var.project
     value         = "1"
     unit          = "Count"
-    default_value = "0"
     dimensions = {
       DID = "$.Parameters.Value"
     }
@@ -324,8 +323,7 @@ resource "aws_cloudwatch_metric_alarm" "queue_size" {
   comparison_operator = "GreaterThanOrEqualToThreshold"
   metric_name         = "QueueSize"
   namespace           = "AWS/Connect"
-  statistic           = "Sum"
-  unit                = "Count"
+  statistic           = "Maximum"
   dimensions = {
     InstanceId  = var.instance_id
     MetricGroup = "Queue",
