@@ -37,8 +37,8 @@ variable "connect_log_group_name" {
 * { "+390000000000" = "500"}
 * { "{number}" = {threshold_count}}
 */
-variable "connect_did_numbers" {
-  description = "Connect DID numbers list with max allowed number of call."
+variable "connect_numbers" {
+  description = "Connect phone numbers list with max allowed number of call."
   type        = map(string)
   default     = {}
 }

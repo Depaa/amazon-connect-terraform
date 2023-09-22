@@ -76,7 +76,7 @@ resource "aws_cloudwatch_metric_alarm" "concurrent_calls_percentage" {
 * MisconfiguredPhoneNumbers
 * Lambda Execution Duration
 * Lambda Execution Errors
-* Custom: DIDCalls
+* Custom: IncomingCalls
 *
 */
 
@@ -248,33 +248,33 @@ resource "aws_cloudwatch_metric_alarm" "lambda_execution_errors" {
   treat_missing_data = "notBreaching"
 }
 
-resource "aws_cloudwatch_log_metric_filter" "custom_did_number" {
-  name           = "${var.project}-connect-DID"
+resource "aws_cloudwatch_log_metric_filter" "custom_incoming_calls" {
+  name           = "${var.project}-connect-incoming-calls"
   pattern        = "{ $.Parameters.Value != \"\" && $.Parameters.Key = \"SystemEndpointAddress\" }"
   log_group_name = var.connect_log_group_name
 
   metric_transformation {
-    name          = "DID"
+    name          = "IncomingCalls"
     namespace     = var.project
     value         = "1"
     unit          = "Count"
     dimensions = {
-      DID = "$.Parameters.Value"
+      IncomingCalls = "$.Parameters.Value"
     }
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "custom_did_number" {
-  for_each            = var.connect_did_numbers
-  alarm_name          = "${var.project}-connect-DID-alarm-${each.key}"
-  alarm_description   = "Alarm for DID ${each.key}"
+resource "aws_cloudwatch_metric_alarm" "custom_incoming_calls" {
+  for_each            = var.connect_numbers
+  alarm_name          = "${var.project}-connect-incoming-calls-alarm-${each.key}"
+  alarm_description   = "Alarm for Incoming Calls ${each.key}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  metric_name         = "DID"
+  metric_name         = "IncomingCalls"
   namespace           = var.project
   statistic           = "Sum"
   unit                = "Count"
   dimensions = {
-    DID = each.key
+    IncomingCalls = each.key
   }
   evaluation_periods = 1
   threshold          = 1

@@ -224,8 +224,8 @@ module "connect_alarms" {
   sns_topic_arn = module.sns_alarm_topic.arn
 
   connect_log_group_name = module.connect_instance.log_group_name
-  connect_did_numbers    = []
   missed_calls_threshold = 10
+  connect_numbers    = []
   # connect_queues = {
   #   "queue_name" = {
   #     "threshold_max_wait" = "500"
