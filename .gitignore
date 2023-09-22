@@ -3,3 +3,4 @@ builds
 *lock*
 *tfstate*
 docs/architecture*
+terraform.*.tfvars

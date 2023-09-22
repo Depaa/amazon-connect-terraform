@@ -1,4 +1,3 @@
-
 variable "name" {
   description = "Name of the Kinesis stream."
   type        = string

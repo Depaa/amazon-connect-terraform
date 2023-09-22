@@ -98,7 +98,7 @@ module "contact_trace_records_lambda_function" {
   description   = "Triggered by Kinesis Stream"
   handler       = "index.handler"
   runtime       = "nodejs18.x"
-  source_path = "./src/connect-stream"
+  source_path   = "./src/connect-stream"
 
   attach_policy_statements = true
   policy_statements = {
@@ -207,4 +207,32 @@ resource "aws_lambda_permission" "agent_events" {
   function_name = module.agent_events_lambda_function.lambda_function_name
   principal     = "kinesis.amazonaws.com"
   source_arn    = module.kinesis_agent_events.arn
+}
+
+module "sns_alarm_topic" {
+  source = "./modules/sns-topic"
+
+  topic_name             = "${local.prefix}-notification"
+  subscription_endpoints = var.subscription_endpoints
+}
+
+module "connect_alarms" {
+  source = "./modules/connect-alarms"
+
+  project       = local.prefix
+  instance_id   = module.connect_instance.id
+  sns_topic_arn = module.sns_alarm_topic.arn
+
+  connect_log_group_name = module.connect_instance.log_group_name
+  connect_did_numbers    = []
+  missed_calls_threshold = 10
+  # connect_queues = {
+  #   "queue_name" = {
+  #     "threshold_max_wait" = "500"
+  #     "threshold_capacity" = "10"
+  #   }
+  # }
+  contact_flows_names          = []
+  lambda_functions_names       = []
+  outbound_contact_flows_names = []
 }
