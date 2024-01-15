@@ -6,6 +6,8 @@ _Discover how to set up your first Amazon Connect instance with this step-by-ste
 ## 🔗 [Real-Time Insights: Monitoring Your Call Center On AWS](https://cloudnature.net/blog/realtime-insights-monitoring-your-call-center-on-aws?utm_medium=social&utm_source=github.com)
 _Gain a deeper understanding of your call center's performance in real-time on AWS. Explore monitoring tools, metrics, and best practices._
 
+---
+
 ### Plan:
 
 `terraform plan -var-file="terraform.dev.tfvars"`
