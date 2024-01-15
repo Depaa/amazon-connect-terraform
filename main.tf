@@ -225,7 +225,7 @@ module "connect_alarms" {
 
   connect_log_group_name = module.connect_instance.log_group_name
   missed_calls_threshold = 1
-  connect_numbers    = {
+  connect_numbers = {
     "+390000000000" = "1"
   }
   connect_queues = {
@@ -234,11 +234,12 @@ module "connect_alarms" {
       "threshold_capacity" = "1"
     }
   }
-  contact_flows_names          = [
+  contact_flows_names = [
     "Sample recording behavior"
   ]
-  lambda_functions_names       = [
-    "${local.prefix}-contact-trace-records" # for testing purposes only
+  lambda_functions_names = [
+    module.agent_events_lambda_function.lambda_function_name,
+    module.contact_trace_records_lambda_function.lambda_function_name
   ]
   outbound_contact_flows_names = [
     "Default outbound"
