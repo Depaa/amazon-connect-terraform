@@ -6,6 +6,10 @@ _Gain a deeper understanding of your call center's performance in real-time on A
 
 ---
 
+> _Before you start with the deploy, please have a look at `terraform.dev.tfvars` and change its values._
+
+---
+
 ### Plan:
 
 `terraform plan -var-file="terraform.dev.tfvars"`
