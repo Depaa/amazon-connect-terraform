@@ -224,15 +224,23 @@ module "connect_alarms" {
   sns_topic_arn = module.sns_alarm_topic.arn
 
   connect_log_group_name = module.connect_instance.log_group_name
-  missed_calls_threshold = 10
-  connect_numbers    = []
-  # connect_queues = {
-  #   "queue_name" = {
-  #     "threshold_max_wait" = "500"
-  #     "threshold_capacity" = "10"
-  #   }
-  # }
-  contact_flows_names          = []
-  lambda_functions_names       = []
-  outbound_contact_flows_names = []
+  missed_calls_threshold = 1
+  connect_numbers    = {
+    "+390000000000" = "1"
+  }
+  connect_queues = {
+    "BasicQueue" = {
+      "threshold_max_wait" = "60" # 1 minute
+      "threshold_capacity" = "1"
+    }
+  }
+  contact_flows_names          = [
+    "Sample recording behavior"
+  ]
+  lambda_functions_names       = [
+    "${local.prefix}-contact-trace-records" # for testing purposes only
+  ]
+  outbound_contact_flows_names = [
+    "Default outbound"
+  ]
 }
