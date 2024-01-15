@@ -12,3 +12,8 @@ output "instance_alias" {
   value       = aws_connect_instance.this.instance_alias
   description = "The instance_alias of the Connect instance."
 }
+
+output "log_group_name" {
+  value       = "/aws/connect/${var.instance_alias}"
+  description = "Connect instance log group name."
+}

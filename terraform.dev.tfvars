@@ -12,3 +12,4 @@ enable_contact_lens        = true
 bucket_force_delete        = true
 bucket_object_lock_enabled = false
 bucket_compliance_days     = 0
+subscription_endpoints     = []

@@ -38,3 +38,9 @@ variable "bucket_compliance_days" {
   type        = number
   default     = 365 # 1 year
 }
+
+variable "subscription_endpoints" {
+  type        = list(string)
+  description = "List of email addresses to subscribe to the SNS topic."
+  default     = []
+}
